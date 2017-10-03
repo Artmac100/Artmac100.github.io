@@ -12,18 +12,20 @@ $(document).ready(function() {
 		slideRight: '#next-slide'
 	});
 
-	displayDropdown('.header__topmenu li', 'ul.dropdown ')
-	displayDropdown('.dropdown li', 'ul.dropdown-submenu')
+	displayDropdown('.header__topmenu li', '.dropdown ')
+	displayDropdown('.dropable', '.dropdown-submenu')
 
 	function displayDropdown(parentSelector, childSelector) {
-		$(parentSelector).on('click', function(e) {
+		$(parentSelector).click(function(e) {
 			e.preventDefault();
 			e.stopPropagation();
+			var siblings = $(this).siblings();
+			console.log(childSelector)
 			if($(this).has(childSelector)) {
-				$(this).siblings().children(childSelector).css('display', 'none');
-				if(parentSelector === '.dropdown li') $(this).siblings().removeClass('active-dropdown');
+				siblings.hasClass('active-dropdown') && siblings.removeClass('active-dropdown');
+				siblings.children().hasClass('display-block') && siblings.children().removeClass('display-block');
 				$(this).children(childSelector).toggleClass('display-block');
-				if(parentSelector === '.dropdown li') $(this).toggleClass('active-dropdown');
+				if(parentSelector === '.dropable') $(this).toggleClass('active-dropdown');
 			}
 		});
 	}

@@ -2,7 +2,7 @@
 @import "colors";
 @import "sprite-social";
 @import "sprite-arrows";
-
+@import "mixins";
 
 * {
 	box-sizing: border-box;
@@ -136,14 +136,7 @@ img {
 }
 
 .active-dropdown:after {
-		content: "";
-		position: absolute;
-		top: 50%;
-		right: -3px;
-		transform: translateY(-50%);
-		border-style: solid;
-		border-width: 4px 0 4px 3px;
-		border-color: transparent transparent transparent #212121;
+	@include right-triangle(#212121);
 }
 
 
@@ -188,7 +181,7 @@ img {
 	right: 25px;
 }
 
-.banner-item, .slick-initialized .slick-slide {
+.banner-item {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -240,7 +233,6 @@ img {
 		text-decoration: none;
 		color: $main-text;
 		&:hover {
-			text-decoration: underline;
 			color: $dark-red;
 		}
 	}
@@ -287,6 +279,16 @@ img {
 	}
 }
 
+.current-page {
+	background: $dark-red;
+	position: relative;
+	a {
+		color: #fff;
+	}
+	&:after {
+		@include right-triangle($dark-red);
+	}
+}
 
 
 .content {
