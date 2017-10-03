@@ -4,7 +4,7 @@
 		var settings = $.extend({
 			slideWidth: 979,
 			slideHeight: 'inherit',
-			wrapperTarget: "img",
+			wrapperTarget: '.banner-item',
 			mode: 'horizontal',
 			duration: 1000,
 			// styles for arrows

@@ -8,7 +8,6 @@ $(document).ready(function() {
 
 	});
 	$('.inner-banner').bannerSlider({
-		wrapperTarget: '.banner-item',
 		slideLeft: '#prev-slide',
 		slideRight: '#next-slide'
 	});
