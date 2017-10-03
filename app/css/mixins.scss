@@ -1,10 +1,22 @@
-@mixin right-triangle($clr) {
+@mixin right-triangle($clr, $lft-pos: auto, $rgt-pos: -3px, $top-pos: 50%) {
 	content: "";
 	position: absolute;
 	top: 50%;
+	left: $lft-pos;
 	right: -3px;
 	transform: translateY(-50%);
 	border-style: solid;
 	border-width: 4px 0 4px 3px;
 	border-color: transparent transparent transparent $clr;
+}
+
+@mixin top-triangle($clr) {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: -3px;
+	border-style: solid;
+	border-width: 0 5px 3px 5px;
+	border-color: transparent transparent $clr transparent;
+	transform: translateX(-50%);
 }

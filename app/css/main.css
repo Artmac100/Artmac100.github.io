@@ -179,12 +179,22 @@ img {
   padding: 0; }
 
 .dropdown-submenu {
-  max-width: 250px;
   position: absolute;
   min-width: 100px;
-  left: 110%;
+  left: 151px;
   top: 0;
   display: none; }
+  .dropdown-submenu li:first-child:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    right: -3px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-style: solid;
+    border-width: 4px 0 4px 3px;
+    border-color: transparent transparent transparent #fff; }
 
 .dropdown li {
   position: relative;
@@ -192,24 +202,11 @@ img {
   .dropdown li:hover {
     background: #1e1e1e; }
 
-.dropdown a {
-  height: 100%; }
-
-.dropdown:before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: -3px;
-  border-style: solid;
-  border-width: 0 5px 3px 5px;
-  border-color: transparent transparent #212121 transparent;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%); }
-
 .active-dropdown:after {
   content: "";
   position: absolute;
   top: 50%;
+  left: auto;
   right: -3px;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
@@ -221,7 +218,16 @@ img {
 .dropdown-submenu {
   position: absolute;
   background: #212121;
-  padding: 0; }
+  padding: 0;
+  width: 150px; }
+  .dropdown a,
+  .dropdown-submenu a {
+    height: 100%;
+    padding-left: 14px;
+    color: #9ca0a2; }
+    .dropdown a:hover,
+    .dropdown-submenu a:hover {
+      color: #fff; }
   .dropdown li,
   .dropdown-submenu li {
     display: block;
@@ -229,9 +235,6 @@ img {
     vertical-align: middle;
     white-space: nowrap;
     max-width: 250px; }
-  .dropdown a,
-  .dropdown-submenu a {
-    color: #fff; }
 
 .banner {
   min-height: 128px;
@@ -343,10 +346,13 @@ img {
   position: relative; }
   .current-page a {
     color: #fff; }
+    .current-page a:hover {
+      color: #fff; }
   .current-page:after {
     content: "";
     position: absolute;
     top: 50%;
+    left: auto;
     right: -3px;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);

@@ -20,7 +20,6 @@ $(document).ready(function() {
 			e.preventDefault();
 			e.stopPropagation();
 			var siblings = $(this).siblings();
-			console.log(childSelector)
 			if($(this).has(childSelector)) {
 				siblings.hasClass('active-dropdown') && siblings.removeClass('active-dropdown');
 				siblings.children().hasClass('display-block') && siblings.children().removeClass('display-block');
