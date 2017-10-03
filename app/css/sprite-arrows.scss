@@ -1,0 +1,10 @@
+.pag-left-arrow, .pag-right-arrow, .accord-arrow-down, .next, .prev, 
+.accord-arrow-right
+{ display: inline-block; background: url('../img/social/arrows-sprite.png') no-repeat; overflow: hidden; text-indent: -9999px; text-align: left; }
+ 
+.pag-left-arrow { background-position: -1px -0px; width: 14px; height: 14px; }
+.pag-right-arrow { background-position: -1px -15px; width: 14px; height: 14px; }
+.accord-arrow-down { background-position: -1px -30px; width: 7px; height: 4px; }
+.next { background-position: -1px -35px; width: 7px; height: 10px; }
+.prev { background-position: -1px -46px; width: 6px; height: 10px; }
+.accord-arrow-right { background-position: -9px -30px; width: 4px; height: 7px; }
