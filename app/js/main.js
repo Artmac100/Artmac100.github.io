@@ -22,7 +22,7 @@ $(document).ready(function() {
 			if($(this).has(childSelector)) {
 				$(this).siblings().children(childSelector).css('display', 'none');
 				if(parentSelector === '.dropdown li') $(this).siblings().removeClass('active-dropdown');
-				$(this).children(childSelector).toggle('display', 'block');
+				$(this).children(childSelector).toggleClass('display-block');
 				if(parentSelector === '.dropdown li') $(this).toggleClass('active-dropdown');
 			}
 		});

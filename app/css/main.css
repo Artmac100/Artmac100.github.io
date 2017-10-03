@@ -485,3 +485,6 @@ h1 {
 h5 {
   margin-top: 24px;
   font-size: 15px; }
+
+.display-block {
+  display: block; }
