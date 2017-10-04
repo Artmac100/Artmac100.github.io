@@ -125,7 +125,9 @@ var outlineStyle = '2px solid red';
 findForm.addEventListener('submit', function(e) {
 	e.preventDefault();
 	var inputVal = findInput.value.trim().toLowerCase();
-	if((inputVal.length > 1 || inputVal.match(/^[a|b|i|u]/)) && inputVal.match(/^.[a-z]/) ) {
+	if((inputVal.length > 1 || inputVal.match(/^[a|b|i|u]/)) && 
+			!inputVal.match(/^.[0-9!@$%^&*()\|\'\"\[\]\;\:\,\<\>\\\?\`]/) &&
+			!inputVal.match(/[#|\.|\~|\+]$/)) {
 		var seekingsSelector = document.querySelectorAll(findInput.value);
 		console.log(seekingsSelector);
 		if(seekingsSelector.length) {
