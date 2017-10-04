@@ -2,7 +2,6 @@
 	$.fn.bannerSlider = function(options) {
 		var options = options || {} ;
 		var settings = $.extend({
-			slideWidth: 979,
 			slideHeight: 'inherit',
 			wrapperTarget: '.banner-item',
 			mode: 'horizontal',
@@ -14,32 +13,23 @@
 		}, options);
 		var self = this;
 		// css styles
-
+		settings.slideWidth = $(settings.wrapperTarget).width();
 		$(self).wrap('<div class="slider-wrapper"><div class="slider-viewport"></div></div>');
+		$( window ).on('resize',function() {
+			settings.slideWidth = $('.container').width();
+		});
 		var wrapper = $(self).parents('.slider-wrapper');
-		var viewport =  $(self).parent();
 		wrapper.css({
 			"display": "flex",
-			"max-width": settings.slideWidth + "px",
-			"height": settings.slideHeight + "px",
-			"margin": "0 auto"
-		});
-		viewport.css({
-			"max-width": settings.slideWidth + "px",
-			"height": settings.slideHeight + "px",
+			"max-width": settings.slideWidth,
+			"min-height": settings.slideHeight,
 			"overflow": "hidden",
 			"margin": "0 auto"
 		});
 		$(settings.wrapperTarget, self).wrap('<div class="slider-item"></div>');
 		var slideItem = $('.slider-item').css( {
-			"width": settings.slideWidth  + "px",
-			"display": "flex",
-			"height": settings.slideHeight  + "px"
-		});
-		$(settings.wrapperTarget).css({
-			"max-width": settings.slideWidth,
-			"max-height": settings.slideHeight,
-			"margin": "0 auto"
+			"width": settings.slideWidth,
+			"min-height": settings.slideHeight
 		});
 		// Set css parametrs horizontal aligning for slider's items
 		$(self).css({
@@ -47,7 +37,7 @@
 			"position": "relative",
 			"transition": settings.duration +"s all " + settings.easing
 		});
-		slideItem.css({ "float": "left","display": "inline-flex"});
+		slideItem.css({ "display": "flex"});
 		// invoking of slide function
 		sliding(settings.slideWidth, "transform");
 		function sliding(heightOrWidth, slideTool) {
