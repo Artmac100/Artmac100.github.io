@@ -124,7 +124,8 @@ var currentElem = {}
 var outlineStyle = '2px solid red';
 findForm.addEventListener('submit', function(e) {
 	e.preventDefault();
-	if(findInput.value.length > 1) {
+	var inputVal = findInput.value.trim().toLowerCase();
+	if((inputVal.length > 1 || inputVal.match(/^[a|b|i|u]/)) && inputVal.match(/^.[a-z]/) ) {
 		var seekingsSelector = document.querySelectorAll(findInput.value);
 		console.log(seekingsSelector);
 		if(seekingsSelector.length) {
