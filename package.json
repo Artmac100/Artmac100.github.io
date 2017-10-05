@@ -1,13 +1,25 @@
 {
   "name": "test-project",
   "version": "0.1.0",
+  "scripts": {
+    "build": "babel ./app/js/findelem -d dist --presets env && gulp"
+  },
   "devDependencies": {
+    "add": "^2.0.6",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
+    "gulp-babel": "^7.0.0",
     "gulp-connect": "^5.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
-    "opn": "^5.0.0"
+    "gulp-uglify": "^3.0.0",
+    "opn": "^5.0.0",
+    "pump": "^1.0.2"
   }
 }

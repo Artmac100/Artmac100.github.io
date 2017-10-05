@@ -6,6 +6,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
+var uglify = require('gulp-uglify');
+var babel = require('gulp-babel');
 
 
 //local server
@@ -43,7 +45,16 @@ gulp.task('convert-css', function() {
       .pipe(connect.reload())
 });
 
+ 
+gulp.task('compress', function () {
+    return gulp.src('./app/js/findelem/findElem.js')
+      .pipe(babel({
+        presets: ['env']
+      }))
+      .pipe(uglify())
+      .pipe(gulp.dest('./app/js/findelem/dist'))
 
+});
 
 
  //folowing
