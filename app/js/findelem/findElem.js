@@ -98,23 +98,13 @@
 
 
 	const defineIsDisable = () => {
-		currentElem.goalElem = [ ...currentElem.goalElem];
-		const isFirstChild = currentElem.goalElem.some(item => {
-			return item.firstElementChild;
-		});
+		const isFirstChild = currentElem.goalElem.firstElementChild;
 		childButton.disabled = !isFirstChild ? true : false;
-		
-		const isParentElement = currentElem.goalElem.some(item => {
-			return item.parentElement;
-		});
+		const isParentElement = currentElem.goalElem.parentElement;
 		parentButton.disabled = !isParentElement ? true : false;
-		const isPrevSibling = currentElem.goalElem.some(item => {
-			return item.previousElementSibling;
-		});
+		const isPrevSibling = currentElem.goalElem.previousElementSibling;
 		prevSiblingButton.disabled = !isPrevSibling ? true : false;
-		const isNextSibling = currentElem.goalElem.some(item => {
-			return item.nextElementSibling;
-		});
+		const isNextSibling = currentElem.goalElem.nextElementSibling;
 		nextSiblingButton.disabled = !isNextSibling ? true : false;
 	}
 	const currentElem = {}
@@ -127,8 +117,8 @@
 				!inputVal.match(/[#|\.|\~|\+]$/)) ||
 				inputVal.match(/h[1-6]/)
 			) {
-			const seekingsSelector = document.querySelectorAll(findInput.value);
-			if(seekingsSelector.length) {
+			const seekingsSelector = document.querySelector(findInput.value);
+			if(seekingsSelector) {
 				noMatch.innerHTML = '';
 				if (currentElem.goalElem) 	elemStyleForEach(currentElem.goalElem, 'outline', ''); 
 				currentElem.goalElem = seekingsSelector;
@@ -141,55 +131,43 @@
 	})
 	parentButton.addEventListener('click', e => {
 		e.preventDefault();
-		currentElem.inretmediateElem = [];
 		elemStyleForEach(currentElem.goalElem, 'outline', '')
-		elemPerformEach(currentElem , 'parentElement');
-		currentElem.goalElem = currentElem.inretmediateElem;
+		elemPerformEach(currentElem.goalElem , 'parentElement');
 		defineIsDisable()	
 	}) ;
 
 	childButton.addEventListener('click', e => {
 		e.preventDefault();
-		currentElem.inretmediateElem = [];
 		elemStyleForEach(currentElem.goalElem, 'outline', '')
-		elemPerformEach(currentElem , 'firstElementChild');
-		currentElem.goalElem = currentElem.inretmediateElem;
+		elemPerformEach(currentElem.goalElem , 'firstElementChild');
 		defineIsDisable();
 	});
 
 
 	prevSiblingButton.addEventListener('click', e => {
 		e.preventDefault();
-		currentElem.inretmediateElem = [];
 		elemStyleForEach(currentElem.goalElem, 'outline', '')
-		elemPerformEach(currentElem , 'previousElementSibling');
-		currentElem.goalElem = currentElem.inretmediateElem;
+		elemPerformEach(currentElem.goalElem , 'previousElementSibling');
 		defineIsDisable();	
 	});
 
 	nextSiblingButton.addEventListener('click', function(e) {
 		e.preventDefault();
-		currentElem.inretmediateElem = [];
 		elemStyleForEach(currentElem.goalElem, 'outline', '')
-		elemPerformEach(currentElem , 'nextElementSibling');
-		currentElem.goalElem = currentElem.inretmediateElem;
+		elemPerformEach(currentElem.goalElem , 'nextElementSibling');
 		defineIsDisable();	
 	});
 
-	const elemPerformEach = (curElem, navMethod) => {
-		const { goalElem, inretmediateElem } = curElem;
-		goalElem.forEach(item => {
-			const method = item[navMethod]; 
-			if (method) {
-				method.style.outline = outlineStyle;
-				inretmediateElem.push(method);
-			}
-		})
+	const elemPerformEach = (goalElem, navMethod) => {
+		const method = goalElem[navMethod]; 
+		method.style.outline = outlineStyle;
+		currentElem.goalElem = method;
+		console.dir(currentElem.goalElem)
+		const { id, className, tagName } = currentElem.goalElem;
 	};
+
 	const elemStyleForEach = (curElem, styleKey,styleVal) => {
-		curElem.forEach(function(item) {
-			item.style[styleKey] = styleVal;	
-		});
+		curElem.style[styleKey] = styleVal;
 	};
 
 	const dragStart = (e) => {
@@ -208,7 +186,6 @@
 
 	const dragOver = (e) => { 
 	 e.preventDefault();
-	 // Set the dropEffect to move
 	 return false;
 	} 
 

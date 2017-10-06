@@ -4,7 +4,6 @@
 		var settings = $.extend({
 			slideHeight: 'inherit',
 			wrapperTarget: '.banner-item',
-			mode: 'horizontal',
 			duration: 1,
 			easing: 'ease',
 			// styles for arrows
