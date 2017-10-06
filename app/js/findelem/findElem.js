@@ -11,12 +11,15 @@
 	}
 	const body = document.body;
 	let findBoxStyle = 
-		'width: 250px;padding: 0;position: absolute; z-index: 9999; min-height:100px; background: cyan; right:20px; top:30px';
+		'width: 250px;padding: 0; cursor: move; position: fixed; z-index: 9999; min-height:100px; background: cyan; right:20px; top:30px';
 	const findBox = createElement(
 		'div', 
 		'findBox',
 		body,
-		findBoxStyle
+		findBoxStyle,
+		null,
+		'draggable',
+		true
 	);
 
 	let dragPanelStyle = 'width: 100%; height:15px; background: brown;'; 
@@ -125,6 +128,7 @@
 			const seekingsSelector = document.querySelectorAll(findInput.value);
 			if(seekingsSelector.length) {
 				noMatch.innerHTML = '';
+				if (currentElem.goalElem) 	elemStyleForEach(currentElem.goalElem, 'outline', ''); 
 				currentElem.goalElem = seekingsSelector;
 				elemStyleForEach(currentElem.goalElem, 'outline', outlineStyle);
 				defineIsDisable();	
@@ -186,53 +190,28 @@
 		});
 	};
 
-	class DragElement {
-		constructor(dragElement = findBox, panelDrag =dragPanel) {
-			this.dragElement = dragElement;
-			this.panelDrag = panelDrag;
-			this.pos1 = 0;
-			this.pos2 = 0;
-			this.pos3 = 0;
-			this.pos4 = 0;
-			this.tracking = false;
-			this.dragMouseDown = this.dragMouseDown.bind(this);
-			this.elementDrag = this.elementDrag.bind(this);
-			this.stopDraging = this.stopDraging.bind(this);
-		}
+	const dragStart = (e) => {
+		const style = window.getComputedStyle(event.target, null);
+    e.dataTransfer.setData("text/plain",
+    (parseInt(style.getPropertyValue("left"),10) - e.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - e.clientY));
+	};
 
-		dragMouseDown(e = window.event)  {
-			this.pos3 = e.clientX;
-			this.pos4 = e.clientY;
-			this.tracking = true;
-			document.addEventListener('mouseup', this.stopDraging)
-			document.addEventListener('mouseleave', this.stopDraging)
-			document.addEventListener('mousemove', this.elementDrag)
-		}
-		elementDrag(e=window.event) {
-			if (this.tracking) {
-				this.pos1 = this.pos3 - e.clientX;
-				this.pos2 = this.pos4 - e.clientY;
-				this.pos3 = e.clientX;
-				this.pos4 = e.clientY;
-				this.dragElement.style.top = (this.dragElement.offsetTop - this.pos2) + "px";
-				this.dragElement.style.left = (this.dragElement.offsetLeft - this.pos1) + "px";
-			}
-		}
-		
-		
-		stopDraging() {
-			this.tracking = false;
-			document.removeEventListener('mousemove', this.elementDrag);
-		}
-		
-		exec() {
-			this.dragElement.ondragstart = function() {
-				return false;
-			};
-			this.panelDrag.addEventListener('mousedown', this.dragMouseDown);
-		}
-	}
- 	const draging = new DragElement()
-	draging.exec(); 
+	const drop = (e) => { 
+		var offset = e.dataTransfer.getData("text/plain").split(',');
+    findBox.style.left = (e.clientX + parseInt(offset[0],10)) + 'px';
+    findBox.style.top = (e.clientY + parseInt(offset[1],10)) + 'px';
+    e.preventDefault();
+    return false;
+	} 
+
+	const dragOver = (e) => { 
+	 e.preventDefault();
+	 // Set the dropEffect to move
+	 return false;
+	} 
+
+	findBox.addEventListener('dragstart',dragStart,false); 
+	document.body.addEventListener('dragover',dragOver,false); 
+	document.body.addEventListener('drop',drop,false); 
 
 })()

@@ -8,6 +8,7 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
+var bookmarklet = require('gulp-bookmarklet');
 
 
 //local server
@@ -46,12 +47,16 @@ gulp.task('convert-css', function() {
 });
 
  
-gulp.task('compress', function () {
+gulp.task('bookmarklet', function () {
     return gulp.src('./app/js/findelem/findElem.js')
       .pipe(babel({
         presets: ['env']
       }))
       .pipe(uglify())
+      .pipe(bookmarklet({
+        format: 'html',
+        file: 'awesome.html'
+    }))
       .pipe(gulp.dest('./app/js/findelem/dist'))
 
 });
