@@ -10,10 +10,10 @@
 		return elem;
 	}
 	const body = document.body;
-	let findBoxStyle = 
+	let findBoxStyle =
 		'width: 250px;padding: 0; cursor: move; position: fixed; z-index: 9999; min-height:100px; background: cyan; right:20px; top:30px';
 	const findBox = createElement(
-		'div', 
+		'div',
 		'findBox',
 		body,
 		findBoxStyle,
@@ -22,7 +22,7 @@
 		true
 	);
 
-	let dragPanelStyle = 'width: 100%; height:15px; background: brown;'; 
+	let dragPanelStyle = 'width: 100%; height:15px; background: brown;';
 	const dragPanel = createElement(
 		'div',
 		'header-pan',
@@ -65,7 +65,7 @@
 		'p',
 		'nomatch',
 		findForm,
-		'text-align: center;', 
+		'text-align: center;',
 	)
 
 	const parentButton = createElement(
@@ -112,7 +112,7 @@
 	findForm.addEventListener('submit', e => {
 		e.preventDefault();
 		const inputVal = findInput.value.trim().toLowerCase();
-		if(((inputVal.length > 1 || inputVal.match(/^[a|b|i|u]/)) && 
+		if(((inputVal.length > 1 || inputVal.match(/^[a|b|i|u]/)) &&
 				!inputVal.match(/^.[0-9!@$%^&*()\|\'\"\[\]\;\:\,\<\>\\\?\`]/) &&
 				!inputVal.match(/[#|\.|\~|\+]$/)) ||
 				inputVal.match(/h[1-6]/)
@@ -120,10 +120,10 @@
 			const seekingsSelector = document.querySelector(findInput.value);
 			if(seekingsSelector) {
 				noMatch.innerHTML = '';
-				if (currentElem.goalElem) 	elemStyleForEach(currentElem.goalElem, 'outline', ''); 
+				if (currentElem.goalElem) 	elemStyleForEach(currentElem.goalElem, 'outline', '');
 				currentElem.goalElem = seekingsSelector;
 				elemStyleForEach(currentElem.goalElem, 'outline', outlineStyle);
-				defineIsDisable();	
+				defineIsDisable();
 			} else {
 				noMatch.innerHTML = 'no match';
 			}
@@ -133,7 +133,7 @@
 		e.preventDefault();
 		elemStyleForEach(currentElem.goalElem, 'outline', '')
 		elemPerformEach(currentElem.goalElem , 'parentElement');
-		defineIsDisable()	
+		defineIsDisable()
 	}) ;
 
 	childButton.addEventListener('click', e => {
@@ -148,22 +148,23 @@
 		e.preventDefault();
 		elemStyleForEach(currentElem.goalElem, 'outline', '')
 		elemPerformEach(currentElem.goalElem , 'previousElementSibling');
-		defineIsDisable();	
+		defineIsDisable();
 	});
 
 	nextSiblingButton.addEventListener('click', function(e) {
 		e.preventDefault();
 		elemStyleForEach(currentElem.goalElem, 'outline', '')
 		elemPerformEach(currentElem.goalElem , 'nextElementSibling');
-		defineIsDisable();	
+		defineIsDisable();
 	});
 
 	const elemPerformEach = (goalElem, navMethod) => {
-		const method = goalElem[navMethod]; 
+		const method = goalElem[navMethod];
 		method.style.outline = outlineStyle;
 		currentElem.goalElem = method;
-		console.dir(currentElem.goalElem)
 		const { id, className, tagName } = currentElem.goalElem;
+		findInput.value = id ? `#${id.split(' ')[0]}` :
+			className ? `.${className.split(' ')[0]}`: tagName.toLowerCase();
 	};
 
 	const elemStyleForEach = (curElem, styleKey,styleVal) => {
@@ -176,21 +177,21 @@
     (parseInt(style.getPropertyValue("left"),10) - e.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - e.clientY));
 	};
 
-	const drop = (e) => { 
+	const drop = (e) => {
 		var offset = e.dataTransfer.getData("text/plain").split(',');
     findBox.style.left = (e.clientX + parseInt(offset[0],10)) + 'px';
     findBox.style.top = (e.clientY + parseInt(offset[1],10)) + 'px';
     e.preventDefault();
     return false;
-	} 
+	}
 
-	const dragOver = (e) => { 
+	const dragOver = (e) => {
 	 e.preventDefault();
 	 return false;
-	} 
+	}
 
-	findBox.addEventListener('dragstart',dragStart,false); 
-	document.body.addEventListener('dragover',dragOver,false); 
-	document.body.addEventListener('drop',drop,false); 
+	findBox.addEventListener('dragstart',dragStart,false);
+	document.body.addEventListener('dragover',dragOver,false);
+	document.body.addEventListener('drop',drop,false);
 
 })()
