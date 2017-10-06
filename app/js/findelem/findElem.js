@@ -122,9 +122,11 @@
 	findForm.addEventListener('submit', e => {
 		e.preventDefault();
 		const inputVal = findInput.value.trim().toLowerCase();
-		if((inputVal.length > 1 || inputVal.match(/^[a|b|i|u]/)) && 
+		if(((inputVal.length > 1 || inputVal.match(/^[a|b|i|u]/)) && 
 				!inputVal.match(/^.[0-9!@$%^&*()\|\'\"\[\]\;\:\,\<\>\\\?\`]/) &&
-				!inputVal.match(/[#|\.|\~|\+]$/)) {
+				!inputVal.match(/[#|\.|\~|\+]$/)) ||
+				inputVal.match(/h[1-6]/)
+			) {
 			const seekingsSelector = document.querySelectorAll(findInput.value);
 			if(seekingsSelector.length) {
 				noMatch.innerHTML = '';
