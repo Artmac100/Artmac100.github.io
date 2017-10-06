@@ -53,10 +53,7 @@ gulp.task('bookmarklet', function () {
         presets: ['env']
       }))
       .pipe(uglify())
-      .pipe(bookmarklet({
-        format: 'html',
-        file: 'awesome.html'
-    }))
+      .pipe(bookmarklet())
       .pipe(gulp.dest('./app/js/findelem/dist'))
 
 });
