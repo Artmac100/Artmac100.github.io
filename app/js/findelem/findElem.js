@@ -98,15 +98,20 @@
 
 
 	const defineIsDisable = () => {
-		const isFirstChild = currentElem.goalElem.firstElementChild;
-		childButton.disabled = !isFirstChild ? true : false;
-		const isParentElement = currentElem.goalElem.parentElement;
-		parentButton.disabled = !isParentElement ? true : false;
-		const isPrevSibling = currentElem.goalElem.previousElementSibling;
-		prevSiblingButton.disabled = !isPrevSibling ? true : false;
-		const isNextSibling = currentElem.goalElem.nextElementSibling;
-		nextSiblingButton.disabled = !isNextSibling ? true : false;
+		const {
+				firstElementChild,
+				parentElement,
+				previousElementSibling,
+				nextElementSibling,
+			} = currentElem.goalElem;
+		childButton.disabled = !firstElementChild;
+		parentButton.disabled = !parentElement;
+		prevSiblingButton.disabled = !previousElementSibling;
+		nextSiblingButton.disabled = !nextElementSibling;
 	}
+
+
+
 	const currentElem = {}
 	const outlineStyle = '2px solid red';
 	findForm.addEventListener('submit', e => {
